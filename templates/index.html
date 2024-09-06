@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reminder Notification App</title>
+    <style>
+        .header {
+            display: flex;
+            align-items: center;
+        }
+        .header img {
+            margin-left: 20px; /* Space between the text and the image */
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Welcome to the Reminder Notification App!</h1>
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="App Logo" style="width:100px;height:auto;">
+    </div>
+
+    <!-- Display flash message -->
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul>
+          {% for message in messages %}
+            <li style="color: green;">{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    <form action="/submit" method="POST">
+        <label for="title">Title:</label><br>
+        <input type="text" id="title" name="title" required><br><br>
+        
+        <label for="message">Message:</label><br>
+        <input type="text" id="message" name="message" required><br><br>
+        
+        <label for="time">Time (in seconds):</label><br>
+        <input type="number" id="time" name="time" required><br><br>
+        
+        <input type="submit" value="Create Notification">
+    </form>
+
+    <br>
+    <p>After submitting, your notification will be created, and you'll be notified after the specified time.</p>
+</body>
+</html>
